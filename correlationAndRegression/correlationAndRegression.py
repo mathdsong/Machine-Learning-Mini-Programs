@@ -1,10 +1,17 @@
 # program for Linear Regression
 import math
+import matplotlib.pyplot as mp
 # define the data lists and their lengths
 xVals = [1, 2, 3, 4, 5, 6]
-yVals = [10, 12, 15, 13, 212, 19]
+yVals = [10, 12, 15, 13, 2, 19]
 m = len(xVals)
 n = len(yVals)
+# plotting data:
+mp.plot(xVals, yVals, "go")
+mp.xlabel("index")
+mp.ylabel("quantity")
+mp.axis([0, 10, 0, 30])
+mp.show()
 
 # define a function to perform linear regression
 def LinReg() :
@@ -26,7 +33,7 @@ def LinReg() :
     print ("the predicted slope is: %0.2f" % slope)
     print ("the predicted intercept is: %0.2f" % yInt)
     print ("")
-    print ("linear model: y = %0.2fx + %0.2f" % (slope, yInt))
+    print ("linear model: y = %0.2fx + (%0.2f)" % (slope, yInt))
     print ("the correlation coefficient is: %0.2f" % r)
     if (r >= 0.80 and r <= 1.00) :
         print("analysis: strong positive correlation")
