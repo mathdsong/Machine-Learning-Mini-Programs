@@ -30,7 +30,7 @@ def LinReg() :
     print ("the correlation coefficient is: %0.2f" % r)
     if (r >= 0.80 and r <= 1.00) :
         print("analysis: strong positive correlation")
-    if (r <= 0.80 and r >= -1.00) :
+    if (r <= -0.80 and r >= -1.00) :
         print("analysis: strong negative correlation")
     if (abs(r) < 0.80) :
         print("analysis: weak correlation")
