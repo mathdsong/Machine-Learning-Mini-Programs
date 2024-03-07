@@ -30,11 +30,13 @@ def LinReg() :
     slope = (n * sumxy - sumx * sumy) / (n * sumxx - sumx * sumx)
     yInt = (sumy * sumxx - sumx * sumxy) / (n * sumxx - sumx * sumx)
     r = (n * sumxy - sumx * sumy) / math.sqrt((n * sumxx - pow(sumx, 2)) * (n * sumyy - pow(sumy, 2)))
+    rSquare = r ** 2
     print ("the predicted slope is: %0.2f" % slope)
     print ("the predicted intercept is: %0.2f" % yInt)
     print ("")
     print ("linear model: y = %0.2fx + (%0.2f)" % (slope, yInt))
     print ("the correlation coefficient is: %0.2f" % r)
+    print ("the coefficient of Determination is: %0.3f" % rSquare)
     if (r >= 0.80 and r <= 1.00) :
         print("analysis: strong positive correlation")
     if (r <= -0.80 and r >= -1.00) :
