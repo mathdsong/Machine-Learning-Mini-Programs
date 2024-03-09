@@ -20,7 +20,7 @@ mp.ylabel("quantity")
 # horizontal scale: 0 to 10
 # vertical scale: 0 to 25
 mp.axis([0, 10, 0, 25])
-# mp.show()
+mp.show()
 
 # define a function to perform power fit:
 def powerFit() :
@@ -34,8 +34,27 @@ def powerFit() :
   b = (l * np.dot(np_lnx, np_lny) - np.sum(np_lnx) * np.sum(np_lny)) / (l * np.dot(np_lnx, np_lnx) - np.dot(np.sum(np_lnx), np.sum(np_lnx)))
   a = (np.sum(np_lny) - b * np.sum(np_lnx)) / l
   A = math.exp(a)
-
   print("the predicted power of the power fit model is: %0.3f" % b)
-  print("the predicted coefficient of the power model is: %0.2f" % A)
+  print("the predicted coefficient of the power fit model is: %0.2f" % A)
   print("power fit model: y = %0.2fx^%0.3f" % (A, b))
+
+
+  # perform interpolation and extrapolation:
+  msg = "please profive an x-value for interpolation: "
+  xInterp = float(input(msg))
+  yInterp = round(A, 2) * pow(xInterp, round(b, 3))
+  print("interpolation result: %0.2f" % yInterp)
+
+  msg = "please profive an x-value for extrapolation: "
+  xExtrap = float(input(msg))
+  yExtrap = round(A, 2) * pow(xExtrap, round(b, 3))
+  print("interpolation result: %0.2f" % yExtrap)
+
+  # compute correlation coefficient:
+  np_x = np.array(xList)
+  np_y = np.array(yList)
+  r = (l * np.dot(np_lnx, np_lny)  - np.sum(np_lnx) * np.sum(np_lny)) / math.sqrt((l * np.dot(np_lnx, np_lnx) - pow(np.sum(np_lnx), 2)) * (l * np.dot(np_lny, np_lny) - pow(np.sum(np_lny), 2)))
+  rSquare = pow(r, 2)
+  print ("the correlation coefficient is: %0.2f" % r)
+  print ("the coefficient of Determination is: %0.3f" % rSquare)
 powerFit()
