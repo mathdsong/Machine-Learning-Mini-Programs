@@ -48,7 +48,7 @@ def powerFit() :
   msg = "please profive an x-value for extrapolation: "
   xExtrap = float(input(msg))
   yExtrap = round(A, 2) * pow(xExtrap, round(b, 3))
-  print("interpolation result: %0.2f" % yExtrap)
+  print("extrapolation result: %0.2f" % yExtrap)
 
   # compute correlation coefficient:
   r = (l * np.dot(np_lnx, np_lny)  - np.sum(np_lnx) * np.sum(np_lny)) / math.sqrt((l * np.dot(np_lnx, np_lnx) - pow(np.sum(np_lnx), 2)) * (l * np.dot(np_lny, np_lny) - pow(np.sum(np_lny), 2)))
