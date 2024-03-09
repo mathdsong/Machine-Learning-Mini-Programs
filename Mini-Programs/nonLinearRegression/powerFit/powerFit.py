@@ -51,8 +51,6 @@ def powerFit() :
   print("interpolation result: %0.2f" % yExtrap)
 
   # compute correlation coefficient:
-  np_x = np.array(xList)
-  np_y = np.array(yList)
   r = (l * np.dot(np_lnx, np_lny)  - np.sum(np_lnx) * np.sum(np_lny)) / math.sqrt((l * np.dot(np_lnx, np_lnx) - pow(np.sum(np_lnx), 2)) * (l * np.dot(np_lny, np_lny) - pow(np.sum(np_lny), 2)))
   rSquare = pow(r, 2)
   print ("the correlation coefficient is: %0.2f" % r)
