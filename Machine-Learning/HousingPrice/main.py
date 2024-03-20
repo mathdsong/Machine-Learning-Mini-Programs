@@ -1,6 +1,9 @@
+import csv
 import math
 import os
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
@@ -8,6 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 train_data_path = os.getenv("HOUSING_TRAIN")
 test_data_path = os.getenv("HOUSING_TEST")
+output_path = os.getenv("OUTPUT")
 
 # Read the data
 X_full = pd.read_csv(train_data_path, index_col='Id')
@@ -40,14 +44,23 @@ def score_model(model, X_t, X_v, y_t, y_v):
   preds = model.predict(X_v)
   return mean_absolute_error(y_v, preds)
 
-best_model = "Model_0"
+best_model = models[0]
 min_MAE = math.inf
 
 for i in range(0, len(models)):
   mae = score_model(models[i], X_train, X_valid, y_train, y_valid)
   if mae < min_MAE:
     min_MAE = mae
-    best_model = "Model_%d" % (i+1)
+    best_model = models[i]
   print("Model_%d's MAE: %d" % (i+1, mae))
 
-print("Best Model is: " + best_model)
+print("Best Model is: " + str(best_model))
+
+# fit the best model(so far) to the training data:
+best_model.fit(X, y)
+# generate test predictions
+preds_test = best_model.predict(X_test)
+# save predictions in format:
+output = pd.DataFrame({'Id': X_test.index, 'SalePrice': preds_test})
+output.to_csv(output_path, index=False)
+
