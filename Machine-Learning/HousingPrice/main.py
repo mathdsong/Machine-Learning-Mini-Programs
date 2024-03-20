@@ -1,7 +1,9 @@
+import math
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
 from dotenv import load_dotenv
 load_dotenv()
 train_data_path = os.getenv("HOUSING_TRAIN")
@@ -32,3 +34,20 @@ model_5 = RandomForestRegressor(n_estimators=100, max_depth=7, random_state=0)
 
 models = [model_1, model_2, model_3, model_4, model_5]
 
+# define a function that returns the MAE from the validation set:
+def score_model(model, X_t, X_v, y_t, y_v):
+  model.fit(X_t, y_t)
+  preds = model.predict(X_v)
+  return mean_absolute_error(y_v, preds)
+
+best_model = "Model_0"
+min_MAE = math.inf
+
+for i in range(0, len(models)):
+  mae = score_model(models[i], X_train, X_valid, y_train, y_valid)
+  if mae < min_MAE:
+    min_MAE = mae
+    best_model = "Model_%d" % (i+1)
+  print("Model_%d's MAE: %d" % (i+1, mae))
+
+print("Best Model is: " + best_model)
