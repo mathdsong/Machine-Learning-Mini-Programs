@@ -1,4 +1,4 @@
-
+from datetime import datetime
 import timeit
 s = '''
 def f():
@@ -8,6 +8,15 @@ def f():
 '''
 t = timeit.timeit(stmt=s)
 print (t, "seconds")
+
+start_time = datetime.now()
+print("input some words:")
+x = input()
+
+time_elapsed = datetime.now() - start_time
+print(time_elapsed)
+print("Time elapsed(hh:mm:ss.ms): {}" . format(time_elapsed))
+print("Time elapsed(hh:mm:ss.ms):" , format(time_elapsed))
 
 
 
