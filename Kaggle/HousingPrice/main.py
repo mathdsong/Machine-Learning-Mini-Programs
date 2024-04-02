@@ -1,9 +1,6 @@
-import csv
 import math
 import os
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
@@ -63,4 +60,3 @@ preds_test = best_model.predict(X_test)
 # save predictions in format:
 output = pd.DataFrame({'Id': X_test.index, 'SalePrice': preds_test})
 output.to_csv(output_path, index=False)
-
