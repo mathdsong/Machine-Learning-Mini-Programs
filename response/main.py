@@ -1,58 +1,169 @@
 import os
 
-real_file = open("real.txt", "r")
-fake_file = open("fake.txt", "r")
+realTxt = "real.txt"
+fakeTxt = "fake.txt"
 
-print("enter a letter")
-letter = input().upper()
-print("<your letter>", letter)
-if (letter.isalpha() and len(letter) == 1) :
-  print("yes")
-else :
-  print("No")
-
-
-print("enter an integer")
-number = input()
-print("<your number>", number)
 try :
-  number = float(number)
-  if (number % 1 == 0) :
-    print("it's an integer")
+  num = int(input("how many records?"))
+  count = 0
+  if os.path.exists(realTxt) and os.path.exists(fakeTxt) :
+    real_file = open(realTxt, "a")
+    fake_file = open(fakeTxt, "a")
   else :
-    print("it's a decimal")
-except ValueError:
-  print("it can't be converted into a number")
+    real_file = open(realTxt, "w")
+    fake_file = open(fakeTxt, "w")
+    fields = ["Q1,", "Q2,", "Q3,", "Q4,", "Q5"]
+    for i in range(5):
+      real_file.write(fields[i])
+      fake_file.write(fields[i])
+    real_file.write("\n")
+    fake_file.write("\n")
+
+  while (count < num) :
+    print("record #", count + 1)
+
+    print("Q1. enter a letter")
+    letter = input()
+    print("<your letter>", letter)
+    if (letter.isalpha() and len(letter) == 1) :
+      real_file.write(letter + ",")
+      fake_file.write(" ,")
+    else :
+      fake_file.write(letter + ",")
+      real_file.write(" ,")
+    print("*******************************************")
+
+    print("Q2. enter an integer")
+    number = input()
+    print("<your number>", number)
+    try :
+      toNumber = float(number)
+      if (toNumber % 1 == 0) :
+        real_file.write(number + ",")
+        fake_file.write(" ,")
+      else :
+        fake_file.write(number + ",")
+        real_file.write(" ,")
+    except ValueError:
+      fake_file.write(number + ",")
+      real_file.write(" ,")
+    print("*******************************************")
+
+    print("Q3. enter a Yes or No")
+    answer = input().upper()
+    print("<your answer>", answer)
+    if (answer == 'YES' or answer == 'NO') :
+      real_file.write(answer + ",")
+      fake_file.write(" ,")
+    else :
+      fake_file.write(answer + ",")
+      real_file.write(" ,")
+    print("*******************************************")
+
+    food_category = ['FRUITS', 'VEGETABLES', 'NUTS', 'DIARY']
+    print("Q4. enter one of your favorite food categories from: " + food_category[0] + ", " + food_category[1] + ", " + food_category[2] + " and " + food_category[3])
+    food = input()
+    food_upperCase = food.upper()
+    print("<your choice of lunch>", food_upperCase)
+    if (food_upperCase in food_category) :
+      real_file.write(food_upperCase + ",")
+      fake_file.write(" ,")
+    else :
+      fake_file.write(food + ",")
+      real_file.write(" ,")
+    print("*******************************************")
+
+    sports_teams = ['MLB', 'NBA', 'NFL', 'NHL']
+    print("Q5. enter a sports team from: " + sports_teams[0] + ", " + sports_teams[1] + ", " + sports_teams[2] + " and " + sports_teams[3])
+    team = input().upper()
+    print("<your sports team>", team)
+    if (team in sports_teams) :
+      real_file.write(team + "\n")
+      fake_file.write("\n")
+    else :
+      fake_file.write(team + "\n")
+      real_file.write("\n")
+    print("*******************************************")
+    count += 1
+except IOError:
+  print("file appears to not exist!")
 
 
-print("enter a Yes or No")
-answer = input().upper()
-print("<your answer>", answer)
-if (answer == 'YES' or answer == 'NO') :
-  print("yes")
-else :
-  print("no")
 
 
-food_category = ['FRUITS', 'VEGETABLES', 'NUTS', 'DIARY']
-print("enter one of your favorite food categories from: " + food_category[0] + ", " + food_category[1] + ", " + food_category[2] + ", " + food_category[3])
-food = input().upper()
-print("<your choice of lunch>", food)
-if (food in food_category) :
-  print("yes")
-else :
-  print("no")
 
 
-sports_teams = ['MLB', 'NBA', 'NFL', 'NHL']
-print("enter a sports team")
-team = input().upper()
-print("<your sports team>", team)
-if (team in sports_teams) :
-  print("yes")
-else :
-  print("no")
+# real_file = open(realTxt, "a")
+# fake_file = open(fakeTxt, "a")
 
+# fields = ["Q1,", "Q2,", "Q3,", "Q4,", "Q5"]
 
+# for i in range(5):
+#   real_file.write(fields[i])
+#   fake_file.write(fields[i])
+
+# real_file.write("\n")
+# fake_file.write("\n")
+
+# print("1. enter a letter")
+# letter = input()
+# print("<your letter>", letter)
+# if (letter.isalpha() and len(letter) == 1) :
+#   real_file.write(letter + ",")
+#   fake_file.write(" ,")
+# else :
+#   fake_file.write(letter + ",")
+#   real_file.write(" ,")
+# print("*******************************************")
+
+# print("2. enter an integer")
+# number = input()
+# print("<your number>", number)
+# try :
+#   toNumber = float(number)
+#   if (toNumber % 1 == 0) :
+#     real_file.write(number + ",")
+#     fake_file.write(" ,")
+#   else :
+#     fake_file.write(number + ",")
+#     real_file.write(" ,")
+# except ValueError:
+#   fake_file.write(number + ",")
+#   real_file.write(" ,")
+# print("*******************************************")
+
+# print("3. enter a Yes or No")
+# answer = input().upper()
+# print("<your answer>", answer)
+# if (answer == 'YES' or answer == 'NO') :
+#   real_file.write(answer + ",")
+#   fake_file.write(" ,")
+# else :
+#   fake_file.write(answer + ",")
+#   real_file.write(" ,")
+# print("*******************************************")
+
+# food_category = ['FRUITS', 'VEGETABLES', 'NUTS', 'DIARY']
+# print("4. enter one of your favorite food categories from: " + food_category[0] + ", " + food_category[1] + ", " + food_category[2] + " and " + food_category[3])
+# food = input()
+# food_upperCase = food.upper()
+# print("<your choice of lunch>", food_upperCase)
+# if (food_upperCase in food_category) :
+#   real_file.write(food_upperCase + ",")
+#   fake_file.write(" ,")
+# else :
+#   fake_file.write(food + ",")
+#   real_file.write(" ,")
+# print("*******************************************")
+
+# sports_teams = ['MLB', 'NBA', 'NFL', 'NHL']
+# print("5. enter a sports team from: " + sports_teams[0] + ", " + sports_teams[1] + ", " + sports_teams[2] + " and " + sports_teams[3])
+# team = input().upper()
+# print("<your sports team>", team)
+# if (team in sports_teams) :
+#   real_file.write(team + "\n")
+# else :
+#   fake_file.write(team + "\n")
+# print("*******************************************")
 
 
