@@ -1,3 +1,4 @@
+# add a new field "TIMESTAMP" into connect-ts.csv file between TIME and DURATION fields
 from datetime import datetime
 
 f = open('connect.csv', 'r')
@@ -11,22 +12,22 @@ with open('connect-ts.csv', 'w') as file:
     date = tokens[1]
     time = tokens[2]
     datetime_string = date + time
+    written_string = ""
 
     for field in tokens:
-      if row == 0 :
-        if col == 3:
-          file.write("TIMESTAMP," + field + ",")
+      if col == 3:
+        if row == 0:
+          written_string += ("TIMESTAMP," + field + ",")
         else :
-          file.write(field + ",")
-      else :
-        if col == 3:
           date_obj = datetime.strptime(datetime_string, "%m/%d/%y%H:%M:%S %p")
           timestamp = int(date_obj.timestamp())
-          file.write(str(timestamp) + "," + field + ",")
-        else :
-          file.write(field + ",")
+          written_string += (str(timestamp) + "," + field + ",")
+      else :
+        written_string += (field + ",")
       col += 1
 
+    written_string = written_string[:-1]
+    file.write(written_string)
     line = f.readline()
     col = 0
     row += 1
