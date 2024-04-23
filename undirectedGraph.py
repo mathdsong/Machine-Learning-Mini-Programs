@@ -23,8 +23,8 @@ while (len(dList) > 0) :
   occur.add(currVertex)
   index = randomGen(1, 5)
   nextVertex = vertices[index]
-  print("next vertext is: " + nextVertex)
-  # check if path exists
+  print("next vertex is: " + nextVertex)
+  # check if the edge exists
   edge1 = edge2 = ""
   edge1 = currVertex + nextVertex
   edge2 = nextVertex + currVertex
